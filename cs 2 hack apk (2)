@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APK Yuklab Olish</title>
+<style>
+  :root{
+    --bg:#0f1115;
+    --card:#171a21;
+    --border:#262a33;
+    --text:#eef0f3;
+    --text-muted:#9aa1ad;
+    --accent:#3b82f6;
+    --accent2:#22c55e;
+    --locked:#3a3f4a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Segoe UI',Arial,sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:32px 28px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .icon{
+    width:72px;
+    height:72px;
+    border-radius:18px;
+    background:linear-gradient(135deg,var(--accent),#8b5cf6);
+    margin:0 auto 18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+  }
+  h1{
+    font-size:20px;
+    margin-bottom:6px;
+  }
+  p.desc{
+    color:var(--text-muted);
+    font-size:14px;
+    margin-bottom:24px;
+  }
+  .step{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#1c1f27;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:12px 14px;
+    margin-bottom:14px;
+    text-align:left;
+    font-size:13px;
+    color:var(--text-muted);
+  }
+  .step.active{color:var(--text);border-color:var(--accent);}
+  .step .num{
+    width:22px;height:22px;
+    border-radius:50%;
+    background:var(--locked);
+    color:#fff;
+    font-size:12px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .step.active .num{background:var(--accent);}
+  .step.done .num{background:var(--accent2);}
+  .btn{
+    display:block;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:8px;
+    text-decoration:none;
+    transition:opacity .15s, transform .1s;
+  }
+  .btn:active{transform:scale(0.98);}
+  .btn-sub{
+    background:var(--accent);
+    color:#fff;
+  }
+  .btn-download{
+    background:var(--accent2);
+    color:#fff;
+  }
+  .btn-locked{
+    background:var(--locked);
+    color:var(--text-muted);
+    cursor:not-allowed;
+    pointer-events:none;
+  }
+  .hint{
+    font-size:12px;
+    color:var(--text-muted);
+    margin-top:14px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="icon">📦</div>
+  <h1>App nomi (APK)</h1>
+  <p class="desc">Yuklab olish uchun avval kanalimizga obuna bo'ling</p>
+
+  <div class="step active" id="step1">
+    <div class="num">1</div>
+    <div>Kanalga obuna bo'ling</div>
+  </div>
+  <div class="step" id="step2">
+    <div class="num">2</div>
+    <div>APK faylni yuklab oling</div>
+  </div>
+
+  <!-- Bu havolani o'zingizning Telegram kanalingiz havolasiga almashtiring -->
+  <a href="https://telegram.me/shoimovcs2" target="_blank" class="btn btn-sub" id="subBtn">
+    📢 Kanalga obuna bo'lish
+  </a>
+
+  <!-- Bu havolani APK faylingiz manziliga (masalan, GitHub release havolasi) almashtiring -->
+  <a href=ile:"https://telegram.me/shoimovcs2/32" ="downloadBtn">
+    🔒 Avval obuna bo'ling
+  </a>
+
+  <p class="hint" id="hintText">Obuna bo'lgach, yuqoridagi tugma yashil bo'lib, yuklab olish ochiladi</p>
+</div>
+
+<script>
+  const subBtn = document.getElementById("subBtn");
+  const downloadBtn = document.getElementById("downloadBtn");
+  const step1 = document.getElementById("step1");
+  const step2 = document.getElementById("step2");
+  const hintText = document.getElementById("hintText");
+
+  // O'ZGARTIRING: APK faylingizning haqiqiy havolasi
+  const APK_LINK = "https://example.com/sizning-fayl.apk";
+
+  subBtn.addEventListener("click", () => {
+    // Foydalanuvchi kanalga o'tgach, biroz kutib, yuklab olish tugmasini ochamiz
+    setTimeout(() => {
+      step1.classList.remove("active");
+      step1.classList.add("done");
+      step2.classList.add("active");
+
+      downloadBtn.href = APK_LINK;
+      downloadBtn.setAttribute("download", "");
+      downloadBtn.classList.remove("btn-locked");
+      downloadBtn.classList.add("btn-download");
+      downloadBtn.innerHTML = "⬇️ APK yuklab olish";
+      downloadBtn.style.pointerEvents = "auto";
+
+      hintText.textContent = "Endi APK faylni yuklab olishingiz mumkin!";
+    }, 1500);
+  });
+</script>
+
+</body>
+</html>
